@@ -53,7 +53,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    `~/plugins/dashboard-plugin.js`
+    `~/plugins/dashboard-plugin.js`,
   ],
   /*
   ** Nuxt.js dev-modules
@@ -64,8 +64,36 @@ export default {
   */
   modules: [
     '@nuxtjs/pwa',
-    'nuxt-i18n'
+    'nuxt-i18n',
+    '@nuxtjs/axios',
+    '@nuxtjs/auth-next'
   ],
+
+  auth: {
+    strategies: {
+      laravelSanctum: {
+        provider: 'laravel/sanctum',
+        url: 'http://localhost:8000',
+        endpoints: {
+          login: {
+            url: '/api/login',
+          },
+          logout: {
+            url: '/api/logout'
+          },
+          user: {
+            property: false
+          }
+        }
+      }
+    },
+    redirect : {
+      login: '/login',
+      logout: '/',
+      home: '/'
+    }
+  }, 
+
   i18n: {
     locales: [
       {
